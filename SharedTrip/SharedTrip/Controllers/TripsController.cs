@@ -94,7 +94,7 @@ namespace SharedTrip.Controllers
         {
             if (!this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Users/Login");
             }
 
             var currTripDetails = this._tripService.Details(tripId);
@@ -106,19 +106,17 @@ namespace SharedTrip.Controllers
         {
             if (!this.IsUserSignedIn())
             {
-               return this.Redirect("/");
+               return this.Redirect("/Users/Login");
+            }
+
+            if (!this._tripService.HasAvalibleSeats(tripId))
+            {
+                return this.Error(ErrorMessages.NoAvalibleSeats);
             }
 
             var currUserId = this.GetUserId();
 
-            var check = this._tripService.IsUserAddedToTheTrip(currUserId, tripId);
-
-            if (check)
-            {
-                return this.Details(tripId);
-            }
-
-            if (!this._tripService.HasAvalibleSeats(tripId))
+            if (this._tripService.IsUserAddedToTheTrip(currUserId, tripId))
             {
                 return this.Details(tripId);
             }

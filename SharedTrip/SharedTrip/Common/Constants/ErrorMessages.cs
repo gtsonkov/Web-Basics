@@ -23,5 +23,7 @@
         public const string TripSetasCount = "Seats count must be between 2 and 6.";
 
         public const string TripDescriptionIsRequired = "Description is required.";
+
+        public const string NoAvalibleSeats = "No seats avalible for this trip.";
     }
 }
