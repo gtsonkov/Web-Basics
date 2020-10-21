@@ -1,4 +1,4 @@
-﻿using SIS.MvcFramework;
+﻿using SUS.MvcFramework;
 
 namespace SharedTrip.Controllers
 {

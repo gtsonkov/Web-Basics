@@ -1,8 +1,8 @@
 ﻿using SharedTrip.Common.Constants;
 using SharedTrip.Services.Contracts;
 using SharedTrip.ViewModels.Users;
-using SIS.HTTP;
-using SIS.MvcFramework;
+using SUS.HTTP;
+using SUS.MvcFramework;
 using System.ComponentModel.DataAnnotations;
 
 namespace SharedTrip.Controllers

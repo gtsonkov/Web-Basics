@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using SharedTrip.Services;
 using SharedTrip.Services.Contracts;
-using SIS.HTTP;
-using SIS.MvcFramework;
+using SUS.HTTP;
+using SUS.MvcFramework;
 
 namespace SharedTrip
 {
     public class Startup : IMvcApplication
     {
-        public void Configure(IList<Route> routeTable)
+        public void Configure(List<Route> routeTable)
         {
             new ApplicationDbContext().Database.Migrate();
         }
