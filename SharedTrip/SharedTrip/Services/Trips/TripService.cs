@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SharedTrip.Services.Trips
 {
@@ -37,7 +38,17 @@ namespace SharedTrip.Services.Trips
             this._db.SaveChanges();
         }
 
-        public void AddUserToTrip(string tripId, string userId) => throw new System.NotImplementedException();
+        public void AddUserToTrip(string tripId, string userId)
+        {
+            var userTrip = new UserTrip
+            {
+                UserId = userId,
+                TripId = tripId
+            };
+
+            this._db.UserTrip.Add(userTrip);
+            this._db.SaveChanges();
+        }
 
         public ICollection<TripsViewModel> GetAllTrips()
         {
@@ -55,20 +66,38 @@ namespace SharedTrip.Services.Trips
 
         public TripDetailViewModel Details(string tripId)
         {
-            var currTrip = this._db.Trips.FirstOrDefault(t => t.Id ==tripId);
+            var currTrip = this._db.Trips.Where(t => t.Id == tripId)
+                .Select( x => new TripDetailViewModel { 
+                Id = x.Id,
+                StartPoint = x.StartingPoint,
+                EndPoint = x.EndPoint,
+                Seats = x.Seats - x.UserTrips.Count,
+                DepartureTime = x.DepartureTime,
+                Description = x.Description,
+                Image = x.ImagePath
+                })
+                .FirstOrDefault();
 
-            TripDetailViewModel trip = new TripDetailViewModel
-            {
-                Id = currTrip.Id,
-                StartPoint = currTrip.StartingPoint,
-                EndPoint = currTrip.EndPoint,
-                Seats = currTrip.Seats - currTrip.UserTrips.Count,
-                DepartureTime = currTrip.DepartureTime,
-                Description = currTrip.Description,
-                Image = currTrip.ImagePath
-            };
+            return currTrip;
+        }
 
-            return trip;
+        public bool IsUserAddedToTheTrip(string userId, string tripId)
+        {
+            return this._db.Trips
+                .Any(t => t.UserTrips
+                .Any(x => x.UserId == userId));
+        }
+
+        public bool HasAvalibleSeats(string tripId)
+        {
+            var tripInfo = this._db.Trips.Where(t => t.Id == tripId)
+                .Select(x => new
+                {
+                    FreeSeats = x.Seats - x.UserTrips.Count
+                })
+                .FirstOrDefault();
+
+            return tripInfo.FreeSeats > 0;
         }
     }
 }

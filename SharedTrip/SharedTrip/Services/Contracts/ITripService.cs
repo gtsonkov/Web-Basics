@@ -9,6 +9,10 @@ namespace SharedTrip.Services.Contracts
 
         void AddUserToTrip(string tripId, string userId);
 
+        bool IsUserAddedToTheTrip(string userId, string tripId);
+
+        bool HasAvalibleSeats(string tripId);
+
         ICollection<TripsViewModel> GetAllTrips();
 
         TripDetailViewModel Details(string id);
