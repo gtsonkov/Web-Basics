@@ -18,6 +18,11 @@ namespace SharedTrip.Controllers
 
         public HttpResponse Login()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
@@ -38,12 +43,22 @@ namespace SharedTrip.Controllers
 
         public HttpResponse Register()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Register(RegisterInputModel userData)
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             //Username requierments check
             if (string.IsNullOrEmpty(userData.Username) || userData.Username.Length < UserDataRequirements.UsernameMinLength || userData.Username.Length > UserDataRequirements.UsernameMaxLength)
             {

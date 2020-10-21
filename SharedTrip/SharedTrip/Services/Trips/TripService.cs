@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SharedTrip.Services.Trips
 {
@@ -84,8 +83,10 @@ namespace SharedTrip.Services.Trips
         public bool IsUserAddedToTheTrip(string userId, string tripId)
         {
             return this._db.Trips
+                .Where(x => x.Id == tripId)
                 .Any(t => t.UserTrips
                 .Any(x => x.UserId == userId));
+                
         }
 
         public bool HasAvalibleSeats(string tripId)

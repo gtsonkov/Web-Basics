@@ -21,12 +21,22 @@ namespace SharedTrip.Controllers
 
         public HttpResponse Add()
         {
+            if (!this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Add(AddTripInputModel input)
         {
+            if (!this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             if (string.IsNullOrEmpty(input.StartPoint) )
             {
                 return this.Error(ErrorMessages.TripStartPointIsRequired);
@@ -69,6 +79,11 @@ namespace SharedTrip.Controllers
 
         public HttpResponse All()
         {
+            if (!this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             List<TripsViewModel> tripsData = this._tripService.GetAllTrips().ToList();
 
             return this.View(tripsData);
@@ -77,6 +92,11 @@ namespace SharedTrip.Controllers
         [HttpGet]
         public HttpResponse Details(string tripId)
         {
+            if (!this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             var currTripDetails = this._tripService.Details(tripId);
 
             return this.View(currTripDetails);
@@ -84,6 +104,11 @@ namespace SharedTrip.Controllers
 
         public HttpResponse AddUserToTrip(string tripId)
         {
+            if (!this.IsUserSignedIn())
+            {
+               return this.Redirect("/");
+            }
+
             var currUserId = this.GetUserId();
 
             var check = this._tripService.IsUserAddedToTheTrip(currUserId, tripId);
