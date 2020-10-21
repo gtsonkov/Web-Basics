@@ -50,10 +50,20 @@ namespace SharedTrip.Controllers
                 return this.Error($"Username length shoud be between {UserDataRequirements.UsernameMinLength} and {UserDataRequirements.UsernameMaxLength} chars.");
             }
 
+            if (!this._userService.IsUsernameAvalible(userData.Username))
+            {
+                return this.Error(ErrorMessages.UsernameNotAvalible);
+            }
+
             //Email requierments check
             if (string.IsNullOrEmpty(userData.Email) || !new EmailAddressAttribute().IsValid(userData.Email))
             {
                 return this.Error(ErrorMessages.InvalidEmail);
+            }
+
+            if (!this._userService.IsEmailAvalible(userData.Email))
+            {
+                return this.Error(ErrorMessages.EmailNotAvalible);
             }
 
             //Password requierments check
@@ -70,6 +80,12 @@ namespace SharedTrip.Controllers
             this._userService.Create(userData.Username,userData.Email,userData.Password);
 
             return this.Redirect("/Users/Login");
+        }
+
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return Redirect("/");
         }
     }
 }

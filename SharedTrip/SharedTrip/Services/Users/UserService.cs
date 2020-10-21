@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SharedTrip.Services
+namespace SharedTrip.Services.Users
 {
     public class UserService : IUserService
     {
