@@ -1,4 +1,5 @@
 ﻿using SharedTrip.ViewModels.Trips;
+using System.Collections.Generic;
 
 namespace SharedTrip.Services.Contracts
 {
@@ -7,5 +8,7 @@ namespace SharedTrip.Services.Contracts
         void AddTrip(AddTripInputModel userInput);
 
         void AddUserToTrip(string tripId, string userId);
+
+        ICollection<TripsViewModel> GetAllTrips();
     }
 }

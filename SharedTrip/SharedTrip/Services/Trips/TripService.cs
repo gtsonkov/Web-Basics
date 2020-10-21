@@ -2,7 +2,9 @@
 using SharedTrip.Services.Contracts;
 using SharedTrip.ViewModels.Trips;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace SharedTrip.Services.Trips
 {
@@ -36,5 +38,19 @@ namespace SharedTrip.Services.Trips
         }
 
         public void AddUserToTrip(string tripId, string userId) => throw new System.NotImplementedException();
+
+        public ICollection<TripsViewModel> GetAllTrips()
+        {
+            return this._db.Trips
+                .Select(x => new TripsViewModel
+                {
+                    Id = x.Id,
+                    StartPoint = x.StartingPoint,
+                    EndPoint = x.EndPoint,
+                    Steats = x.Seats - x.UserTrips.Count,
+                    DepartureTime = x.DepartureTime.ToString("dd.MM.yyyy hh:mm:ss")
+                })
+                .ToList();
+        }
     }
 }

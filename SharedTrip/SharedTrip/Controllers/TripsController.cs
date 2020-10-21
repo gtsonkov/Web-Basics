@@ -4,7 +4,9 @@ using SharedTrip.ViewModels.Trips;
 using SUS.HTTP;
 using SUS.MvcFramework;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace SharedTrip.Controllers
 {
@@ -62,12 +64,14 @@ namespace SharedTrip.Controllers
 
             this._tripService.AddTrip(input);
 
-            return this.View();
+            return this.Redirect("/Trips/All");
         }
 
         public HttpResponse All()
         {
-            return this.View();
+            List<TripsViewModel> tripsData = this._tripService.GetAllTrips().ToList();
+
+            return this.View(tripsData);
         }
     }
 }
