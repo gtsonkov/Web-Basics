@@ -47,10 +47,28 @@ namespace SharedTrip.Services.Trips
                     Id = x.Id,
                     StartPoint = x.StartingPoint,
                     EndPoint = x.EndPoint,
-                    Steats = x.Seats - x.UserTrips.Count,
-                    DepartureTime = x.DepartureTime.ToString("dd.MM.yyyy hh:mm:ss")
+                    Seats = x.Seats - x.UserTrips.Count,
+                    DepartureTime = x.DepartureTime
                 })
                 .ToList();
+        }
+
+        public TripDetailViewModel Details(string tripId)
+        {
+            var currTrip = this._db.Trips.FirstOrDefault(t => t.Id ==tripId);
+
+            TripDetailViewModel trip = new TripDetailViewModel
+            {
+                Id = currTrip.Id,
+                StartPoint = currTrip.StartingPoint,
+                EndPoint = currTrip.EndPoint,
+                Seats = currTrip.Seats - currTrip.UserTrips.Count,
+                DepartureTime = currTrip.DepartureTime,
+                Description = currTrip.Description,
+                Image = currTrip.ImagePath
+            };
+
+            return trip;
         }
     }
 }

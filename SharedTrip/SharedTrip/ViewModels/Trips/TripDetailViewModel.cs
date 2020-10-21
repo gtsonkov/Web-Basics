@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Globalization;
 
 namespace SharedTrip.ViewModels.Trips
 {
-    public class TripsViewModel
+    public class TripDetailViewModel
     {
         public string Id { get; set; }
 
         public string StartPoint { get; set; }
 
         public string EndPoint { get; set; }
+
         public DateTime DepartureTime { get; set; }
 
-        public string DepartureTimeAsString => this.DepartureTime.ToString(CultureInfo.GetCultureInfo("bg-BG"));
+        public string DepartureTimeLocal => this.DepartureTime.ToString("s");
 
         public int Seats { get; set; }
+
+        public string Description { get; set; }
+
+        public string Image { get; set; }
     }
 }
