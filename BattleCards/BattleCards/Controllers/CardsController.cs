@@ -16,6 +16,11 @@ namespace BattleCards.Controllers
 
         public HttpResponse All()
         {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/");
+            }
+
             var cards = this._cradService.GetAllCards();
 
             return this.View(cards);
@@ -23,15 +28,63 @@ namespace BattleCards.Controllers
 
         public HttpResponse Add()
         {
-           return this.View();
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/");
+            }
+
+            return this.View();
         }
 
         [HttpPost]
         public HttpResponse Add(CardInputModel userImput)
         {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/");
+            }
+
+            //TODO Input check!
+
             this._cradService.AddCard(userImput);
 
+            return this.Add();
+        }
+
+        public HttpResponse AddToCollection(string cardId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/");
+            }
+
+            var userId = this.User;
+            this._cradService.AddCardToCollection(cardId, userId);
             return this.All();
+        }
+
+        public HttpResponse Collection()
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/");
+            }
+            
+            var userId = this.User;
+            var collection = this._cradService.GetCollection(userId);
+            return this.View(collection);
+        }
+
+        public HttpResponse RemoveFromCollection(string cardId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+               return this.Redirect("/");
+            }
+
+            var userId = this.User;
+            this._cradService.RemoveCardFromCollection(cardId, userId);
+            return this.Collection();
         }
     }
 }

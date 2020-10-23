@@ -12,5 +12,7 @@
 
         public const string UsernameNotAvalible = "The username you try to enter is already used from another user in our system. Please try with another username.";
 
+        public const string CardAlreadyInCollection = "Selected card is alaredy in you collection.";
+
     }
 }

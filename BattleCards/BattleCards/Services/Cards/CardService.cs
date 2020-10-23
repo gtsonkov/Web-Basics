@@ -4,6 +4,8 @@ using BattleCards.Services.Contracts;
 using BattleCards.ViewModels.Cards;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BattleCards.Services.Cards
 {
@@ -32,9 +34,47 @@ namespace BattleCards.Services.Cards
             this._db.SaveChanges();
         }
 
-        public void AddCardToCollection(string cardId, string userId) => throw new System.NotImplementedException();
+        public void AddCardToCollection(string cardId, string userId)
+        {
+            if (this._db.UsersCards.Any(x => x.UserId == userId && x.CardId == cardId))
+            {
+                return;
+            }
 
-        public AllCardsViewModel GetCollection(string userId) => throw new System.NotImplementedException();
+            var userCard = new UserCard
+            {
+                UserId = userId,
+                CardId = cardId
+            };
+
+            this._db.UsersCards.Add(userCard);
+            this._db.SaveChanges();
+        }
+
+        public AllCardsViewModel GetCollection(string userId)
+        {
+            var list = this._db.UsersCards
+               .Where(u => u.UserId == userId)
+               .Select(x => new CardViewModel
+               {
+                   Id = x.Card.Id,
+                   Name = x.Card.Name,
+                   ImageUrl = x.Card.ImageUrl,
+                   Keyword = x.Card.Keyword,
+                   Attack = x.Card.Attack,
+                   Health = x.Card.Health,
+                   Description = x.Card.Description
+               })
+                .ToList();
+
+
+            AllCardsViewModel allCards = new AllCardsViewModel
+            {
+                CardList = list
+            };
+
+            return allCards;
+        }
 
         public AllCardsViewModel GetAllCards()
         {
@@ -59,6 +99,19 @@ namespace BattleCards.Services.Cards
             return allCards;
         }
 
-        public bool RemoveCardFromCollection(string cardId, string userId) => throw new System.NotImplementedException();
+        public bool RemoveCardFromCollection(string cardId, string userId)
+        {
+            var currentPair = this._db.UsersCards.FirstOrDefault(x => x.UserId == userId && x.CardId == cardId);
+
+            if (currentPair == null)
+            {
+                return false;
+            }
+
+            this._db.UsersCards.Remove(currentPair);
+            this._db.SaveChanges();
+
+            return true;
+        }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BattleCards.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201023153101_initMigration")]
-    partial class initMigration
+    [Migration("20201023214133_initMigration-v2")]
+    partial class initMigrationv2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,8 @@ namespace BattleCards.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Health")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Health")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -75,7 +74,7 @@ namespace BattleCards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BattleCards.Models.UserCard", b =>
@@ -90,7 +89,7 @@ namespace BattleCards.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("UserCard");
+                    b.ToTable("UsersCards");
                 });
 
             modelBuilder.Entity("BattleCards.Models.UserCard", b =>

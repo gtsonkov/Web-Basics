@@ -10,7 +10,7 @@ namespace BattleCards.Data
 
         public DbSet<Card> Cards { get; set; }
 
-        public DbSet<User> UsersCards { get; set; }
+        public DbSet<UserCard> UsersCards { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,20 +21,10 @@ namespace BattleCards.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<UserCard>()
                 .HasKey(x => new { x.UserId, x.CardId });
 
-            modelBuilder.Entity<UserCard>()
-                .HasOne(u => u.User)
-                .WithMany(uc => uc.UserCards)
-                .HasForeignKey(u => u.UserId);
-
-            modelBuilder.Entity<UserCard>()
-                .HasOne(c => c.Card)
-                .WithMany(uc => uc.UsersCard)
-                .HasForeignKey(c => c.CardId);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace BattleCards.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BattleCards.Models.UserCard", b =>
@@ -87,7 +87,7 @@ namespace BattleCards.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("UserCard");
+                    b.ToTable("UsersCards");
                 });
 
             modelBuilder.Entity("BattleCards.Models.UserCard", b =>
