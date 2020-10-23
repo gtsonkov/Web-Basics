@@ -1,4 +1,5 @@
 ﻿using BattleCards.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +9,7 @@ namespace BattleCards.Models
     {
         public User()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.UserCards = new HashSet<UserCard>();
         }
 
