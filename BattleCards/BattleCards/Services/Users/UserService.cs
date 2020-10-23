@@ -30,7 +30,14 @@ namespace BattleCards.Services.Users
             this._db.SaveChanges();
         }
 
-        public string GetUserId(string username, string password) => throw new System.NotImplementedException();
+        public string GetUserId(string username, string password)
+        {
+            var currUser = this._db.Users
+                .Where(u => u.Username == username && u.Password == ComputeHash(password))
+                .FirstOrDefault();
+
+            return currUser?.Id;  
+        }
 
         public bool IsEmailAvalible(string email) => throw new System.NotImplementedException();
 
