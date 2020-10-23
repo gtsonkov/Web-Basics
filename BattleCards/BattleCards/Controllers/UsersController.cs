@@ -31,6 +31,8 @@ namespace BattleCards.Controllers
                 return this.Error(ErrorMessages.InvalidUsernameOrPassword);
             }
 
+            this.SignIn(currUserId);
+
             return this.Redirect("/Cards/All");
         }
 

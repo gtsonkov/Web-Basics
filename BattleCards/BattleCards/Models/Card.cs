@@ -26,11 +26,9 @@ namespace BattleCards.Models
         [Required]
         public string Keyword { get; set; }
 
-        [Required]
         public int Attack { get; set; }
 
-        [Required]
-        public string Health { get; set; }
+        public int Health { get; set; }
 
         [Required]
         [MaxLength(ConstantData.CardDescriptionMaxLength)]

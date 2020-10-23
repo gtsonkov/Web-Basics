@@ -110,7 +110,15 @@
 
                 byte[] responseBytes = Encoding.UTF8.GetBytes(response.ToString());
                 await networkStream.WriteAsync(responseBytes, 0, responseBytes.Length);
-                await networkStream.WriteAsync(response.Body, 0, response.Body.Length);
+
+                if (response.Body == null)
+                {
+                    await networkStream.WriteAsync(response.Body, 0, 0);
+                }
+                else
+                {
+                    await networkStream.WriteAsync(response.Body, 0, response.Body.Length);
+                }
             }
             catch (Exception ex)
             {
@@ -120,7 +128,7 @@
                 errorResponse.Headers.Add(new Header("Content-Type", "text/plain"));
                 byte[] responseBytes = Encoding.UTF8.GetBytes(errorResponse.ToString());
                 await networkStream.WriteAsync(responseBytes, 0, responseBytes.Length);
-                await networkStream.WriteAsync(errorResponse.Body, 0, errorResponse.Body.Length);
+                await networkStream.WriteAsync(errorResponse?.Body, 0, errorResponse.Body.Length);
             }
         }
     }

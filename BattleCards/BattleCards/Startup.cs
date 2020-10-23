@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BattleCards.Data;
+using BattleCards.Services.Cards;
 using BattleCards.Services.Contracts;
 using BattleCards.Services.Users;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace BattleCards
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.Add<IUserService, UserService>();
+            serviceCollection.Add<ICardService, CardService>();
         }
     }
 }
