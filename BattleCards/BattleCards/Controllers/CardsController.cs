@@ -83,7 +83,10 @@ namespace BattleCards.Controllers
             }
 
             var userId = this.User;
-            this._cradService.RemoveCardFromCollection(cardId, userId);
+            if (!this._cradService.RemoveCardFromCollection(cardId, userId))
+            {
+                return this.Redirect("Cards/All");
+            }
             return this.Collection();
         }
     }
