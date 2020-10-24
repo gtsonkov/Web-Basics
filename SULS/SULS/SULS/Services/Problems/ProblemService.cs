@@ -35,6 +35,13 @@ namespace SULS.Services.Problems
             this._db.SaveChanges();
         }
 
+        public void DeleteSubmission(string submissionId)
+        {
+            var currentSubmission = this._db.Submissions.FirstOrDefault(s => s.Id == submissionId);
+            this._db.Submissions.Remove(currentSubmission);
+            this._db.SaveChanges();
+        }
+
         public ICollection<ProblemViewModel> GetAllProblems()
         {
             var problems = this._db.Problems
@@ -47,6 +54,21 @@ namespace SULS.Services.Problems
                 ).ToList();
 
             return problems;
+        }
+
+        public ProblemViewModel GetProblemBySubmissionId(string submissionId)
+        {
+            var result = this._db
+                .Problems
+                .Where(p => p.ProblemSubmissions.Any(ps => ps.Id == submissionId))
+                .Select(x => new ProblemViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                })
+                .FirstOrDefault();
+
+            return result;
         }
 
         public ProblemSubmissionsView GetProblemDetails(string problemId)

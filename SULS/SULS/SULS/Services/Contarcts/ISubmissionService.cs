@@ -8,8 +8,6 @@ namespace SULS.Services.Contarcts
     {
         void AddSubmission(CreateSubmissonViewModel userInput);
 
-        void DeleteSubmission(string submissionId);
-
         ProblemViewModel GetProblemForSubmitting(string problemId);
 
         ICollection<SubmisionDetailsViewModel> GetSubbmisionsDetails(string problemId); 

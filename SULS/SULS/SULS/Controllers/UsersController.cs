@@ -18,12 +18,22 @@ namespace SULS.Controllers
 
         public HttpResponse Login()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Login(UserLoginViewModel input)
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             var currentUserId = this._userService.GetUserId(input);
 
             if (currentUserId == null)
@@ -44,12 +54,22 @@ namespace SULS.Controllers
 
         public HttpResponse Register()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Register(CreateUserViewModel input)
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+
             //Check Username
             if (string.IsNullOrEmpty(input.Username) || input.Username.Length < DataRequierments.UsernameMinLength || input.Username.Length > DataRequierments.UsernameMaxLength)
             {

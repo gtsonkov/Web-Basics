@@ -60,15 +60,17 @@ namespace SULS.Controllers
            return this.View(result);
         }
 
-        [HttpPost]
         public HttpResponse Delete(string id)
         {
             if (!this.IsUserSignedIn())
             {
                 this.Redirect("/");
             }
+            var currentProblem = this._problemService.GetProblemBySubmissionId(id);
 
-            return this.View("/");
+            this._problemService.DeleteSubmission(id);
+
+            return this.Redirect("/");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SULS.Services.Contarcts;
+﻿using SULS.Common;
+using SULS.Services.Contarcts;
 using SULS.ViewModels.Submissions;
 using SUS.HTTP;
 using SUS.MvcFramework;
@@ -30,6 +31,11 @@ namespace SULS.Controllers
             if (!this.IsUserSignedIn())
             {
                 this.Redirect("/");
+            }
+
+            if (string.IsNullOrEmpty(userInput.Code) || userInput.Code.Length < DataRequierments.CodeMinLength || userInput.Code.Length > DataRequierments.CodeMaxLength)
+            {
+                return this.Error($"Code is reuired and shoud be between {DataRequierments.CodeMinLength} and {DataRequierments.CodeMaxLength} digits.");
             }
 
             var currentUserId = this.GetUserId();

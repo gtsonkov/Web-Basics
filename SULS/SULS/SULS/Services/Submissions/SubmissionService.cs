@@ -35,7 +35,6 @@ namespace SULS.Services.Contarcts.Submissions
             this._db.SaveChanges();
         }
 
-        public void DeleteSubmission(string submissionId) => throw new System.NotImplementedException();
         public ProblemViewModel GetProblemForSubmitting(string problemId)
         {
             var currentProblem = this._db.Problems
