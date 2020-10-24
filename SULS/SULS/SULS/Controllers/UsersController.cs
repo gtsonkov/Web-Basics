@@ -36,6 +36,12 @@ namespace SULS.Controllers
             return this.Redirect("/");
         }
 
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return Redirect("/");
+        }
+
         public HttpResponse Register()
         {
             return this.View();
