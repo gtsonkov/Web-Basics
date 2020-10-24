@@ -7,9 +7,7 @@ namespace SULS.Services.Contarcts
     {
         void CreateProblem (CreateProblemViewModel userInput);
 
-        void AddSubmit();
-
-        ProblemViewModel GetProblemDetails (string problemId);
+        ProblemSubmissionsView GetProblemDetails (string problemId);
 
         bool CheckAvalibleName(string problemName);
 

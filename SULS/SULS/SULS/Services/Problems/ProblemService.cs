@@ -4,6 +4,7 @@ using SULS.Models;
 using SULS.Services.Contarcts;
 using SULS.ViewModels.Problems;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SULS.Services.Problems
@@ -16,8 +17,6 @@ namespace SULS.Services.Problems
         {
             this._db = db;
         }
-
-        public void AddSubmit() => throw new System.NotImplementedException();
 
         public bool CheckAvalibleName(string problemName)
         {
@@ -50,6 +49,29 @@ namespace SULS.Services.Problems
             return problems;
         }
 
-        public ProblemViewModel GetProblemDetails(string problemId) => throw new System.NotImplementedException();
+        public ProblemSubmissionsView GetProblemDetails(string problemId)
+        {
+            var currentProblemData = this._db.Problems.FirstOrDefault(x => x.Id == problemId);
+
+            var problemInfo = new ProblemSubmissionsView();
+
+            problemInfo.ProblemName = currentProblemData.Name;
+
+            var submissions = this._db.Submissions
+                .Where(s => s.ProblemId == problemId)
+                .Select(x => new ProblemDetailsViewModel
+                {
+                    MaxPoints = currentProblemData.Points,
+                    AchievedResults = x.AchiveResult,
+                    SubmittedOn = x.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    SubmissionId = x.Id,
+                    Username = x.User.Username
+                })
+                .ToList();
+
+            problemInfo.Submissions = submissions;
+
+            return problemInfo;
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace SULS.Controllers
 
         public HttpResponse Create()
         {
+            if (!this.IsUserSignedIn())
+            {
+                this.Redirect("/");
+            }
+
             return this.View();
         }
 
@@ -40,8 +45,30 @@ namespace SULS.Controllers
 
             this._problemService.CreateProblem(input);
 
-           return this.Redirect("/");
+            return this.Redirect("/");
         }
 
+        public HttpResponse Details(string id)
+        {
+            if (!this.IsUserSignedIn())
+            {
+                this.Redirect("/");
+            }
+
+            var result = this._problemService.GetProblemDetails(id);
+
+           return this.View(result);
+        }
+
+        [HttpPost]
+        public HttpResponse Delete(string id)
+        {
+            if (!this.IsUserSignedIn())
+            {
+                this.Redirect("/");
+            }
+
+            return this.View("/");
+        }
     }
 }

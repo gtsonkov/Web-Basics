@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SULS.Data;
 using SULS.Services.Contarcts;
+using SULS.Services.Contarcts.Submissions;
 using SULS.Services.Problems;
 using SULS.Services.Users;
 using SUS.HTTP;
@@ -20,6 +21,7 @@ namespace SULS
         {
             serviceCollection.Add<IUsersService, UsersService>();
             serviceCollection.Add<IProblemsService, ProblemService>();
+            serviceCollection.Add<ISubmissionService, SubmissionService>();
         }
     }
 }
