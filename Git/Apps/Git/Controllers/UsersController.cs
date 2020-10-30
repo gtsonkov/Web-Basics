@@ -83,7 +83,7 @@ namespace Git.Controllers
 
             if (string.IsNullOrEmpty(userInput.Username) || userInput.Username.Length < DataRequiermentsConst.UsernameMinLength || userInput.Username.Length > DataRequiermentsConst.UsernameMaxLength)
             {
-                return this.Error($"Username length shoud be between {DataRequiermentsConst.UsernameMinLength} and {DataRequiermentsConst.UsernameMaxLength}");
+                return this.Error($"Username length shoud be between {DataRequiermentsConst.UsernameMinLength} and {DataRequiermentsConst.UsernameMaxLength} chars.");
             }
 
             if (!this._userService.IsUsernameAvailable(userInput.Username))

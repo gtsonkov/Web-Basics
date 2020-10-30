@@ -49,7 +49,7 @@ namespace Git.Controllers
 
             if (string.IsNullOrEmpty(userInput.Description) || userInput.Description.Length < DataRequiermentsConst.CommitDescriptionMinLength)
             {
-                return this.Error($"Description text is reuired and shoud be minimum {DataRequiermentsConst.CommitDescriptionMinLength} digits");
+                return this.Error($"Description text is reuired and shoud be minimum {DataRequiermentsConst.CommitDescriptionMinLength} chars.");
             }
 
             var commitData = new CreateCommitViewModel

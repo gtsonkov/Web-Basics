@@ -55,7 +55,7 @@ namespace Git.Controllers
 
             if (string.IsNullOrEmpty(userInput.Name) || userInput.Name.Length < DataRequiermentsConst.RepositoryNameMinLength || userInput.Name.Length > DataRequiermentsConst.RepositoryNameMaxLength)
             {
-                return this.Error($"Name is required and shoud be between {DataRequiermentsConst.RepositoryNameMinLength} and {DataRequiermentsConst.RepositoryNameMaxLength} digits");
+                return this.Error($"Name is required and shoud be between {DataRequiermentsConst.RepositoryNameMinLength} and {DataRequiermentsConst.RepositoryNameMaxLength} chars.");
             }
 
             if (string.IsNullOrEmpty(userInput.RepositoryType))

@@ -35,12 +35,12 @@ namespace SULS.Controllers
 
             if (string.IsNullOrEmpty(input.Name) || input.Name.Length < DataRequierments.ProblemNameMinLegth || input.Name.Length > DataRequierments.ProblemNameMaxLegth)
             {
-                return this.Error($"The name of the problem shoud be between {DataRequierments.ProblemNameMinLegth} and {DataRequierments.ProblemNameMaxLegth} digits.");
+                return this.Error($"The name of the problem shoud be between {DataRequierments.ProblemNameMinLegth} and {DataRequierments.ProblemNameMaxLegth} chars.");
             }
 
             if (input.Points < DataRequierments.ProblemPointsMin || input.Points > DataRequierments.ProblemPointsMax)
             {
-                return this.Error($"Points are required and shoud be between {DataRequierments.ProblemPointsMin} and {DataRequierments.ProblemPointsMax} points");
+                return this.Error($"Points are required and shoud be between {DataRequierments.ProblemPointsMin} and {DataRequierments.ProblemPointsMax} points.");
             }
 
             this._problemService.CreateProblem(input);

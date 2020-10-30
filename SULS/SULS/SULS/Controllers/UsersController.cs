@@ -73,7 +73,7 @@ namespace SULS.Controllers
             //Check Username
             if (string.IsNullOrEmpty(input.Username) || input.Username.Length < DataRequierments.UsernameMinLength || input.Username.Length > DataRequierments.UsernameMaxLength)
             {
-                return this.Error($"Username is required and shoud be between {DataRequierments.UsernameMinLength} and {DataRequierments.UsernameMaxLength} digits.");
+                return this.Error($"Username is required and shoud be between {DataRequierments.UsernameMinLength} and {DataRequierments.UsernameMaxLength} chars.");
             }
 
             if (!this._userService.IsUsernameAvalible(input.Username))
@@ -95,7 +95,7 @@ namespace SULS.Controllers
             //Password Check
             if (string.IsNullOrEmpty(input.Password) || input.Password.Length < DataRequierments.PasswordMinLength || input.Password.Length > DataRequierments.PasswordMaxLength)
             {
-                return this.Error($"Password is required and shoud be between {DataRequierments.PasswordMinLength} and {DataRequierments.PasswordMaxLength} digits.");
+                return this.Error($"Password is required and shoud be between {DataRequierments.PasswordMinLength} and {DataRequierments.PasswordMaxLength} chars.");
             }
 
             if (input.Password != input.ConfirmPassword)

@@ -35,7 +35,7 @@ namespace SULS.Controllers
 
             if (string.IsNullOrEmpty(userInput.Code) || userInput.Code.Length < DataRequierments.CodeMinLength || userInput.Code.Length > DataRequierments.CodeMaxLength)
             {
-                return this.Error($"Code is reuired and shoud be between {DataRequierments.CodeMinLength} and {DataRequierments.CodeMaxLength} digits.");
+                return this.Error($"Code is reuired and shoud be between {DataRequierments.CodeMinLength} and {DataRequierments.CodeMaxLength} chars.");
             }
 
             var currentUserId = this.GetUserId();
