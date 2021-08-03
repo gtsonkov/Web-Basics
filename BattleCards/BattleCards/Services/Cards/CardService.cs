@@ -2,10 +2,7 @@
 using BattleCards.Models;
 using BattleCards.Services.Contracts;
 using BattleCards.ViewModels.Cards;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 
 namespace BattleCards.Services.Cards
 {
