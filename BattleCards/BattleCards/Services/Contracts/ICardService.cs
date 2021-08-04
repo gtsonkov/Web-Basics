@@ -1,5 +1,4 @@
 ﻿using BattleCards.ViewModels.Cards;
-using System.Collections.Generic;
 
 namespace BattleCards.Services.Contracts
 {

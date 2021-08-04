@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BattleCards.Services.Books
+﻿namespace BattleCards.Services.Books
 {
     class BookServices
     {
